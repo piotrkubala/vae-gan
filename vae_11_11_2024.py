@@ -126,27 +126,27 @@ class Discriminator(nn.Module):
         image_width_transformed = image_width // 64
 
         self.discriminator_back = nn.Sequential(
-            nn.Conv2d(3, 64, kernel_size=5, stride=2, padding=2), # image_width/2 x image_width/2
+            nn.utils.spectral_norm(nn.Conv2d(3, 64, kernel_size=5, stride=2, padding=2)), # image_width/2 x image_width/2
             nn.LeakyReLU(0.2),
-            nn.Conv2d(64, 128, kernel_size=5, stride=2, padding=2), # image_width/4 x image_width/4
+            nn.utils.spectral_norm(nn.Conv2d(64, 128, kernel_size=5, stride=2, padding=2)), # image_width/4 x image_width/4
             nn.BatchNorm2d(128),
             nn.LeakyReLU(0.2),
-            nn.Conv2d(128, 256, kernel_size=5, stride=2, padding=2), # image_width/8 x image_width/8
+            nn.utils.spectral_norm(nn.Conv2d(128, 256, kernel_size=5, stride=2, padding=2)), # image_width/8 x image_width/8
             nn.BatchNorm2d(256),
             nn.LeakyReLU(0.2),
-            nn.Conv2d(256, 328, kernel_size=5, stride=2, padding=2), # image_width/16 x image_width/16
+            nn.utils.spectral_norm(nn.Conv2d(256, 328, kernel_size=5, stride=2, padding=2)), # image_width/16 x image_width/16
             nn.BatchNorm2d(328),
             nn.LeakyReLU(0.2)
         )
 
         self.discriminator_head = nn.Sequential(
-            nn.Conv2d(328, 512, kernel_size=5, stride=2, padding=2), # image_width/32 x image_width/32
+            nn.utils.spectral_norm(nn.Conv2d(328, 512, kernel_size=5, stride=2, padding=2)), # image_width/32 x image_width/32
             nn.BatchNorm2d(512),
             nn.LeakyReLU(0.2),
-            nn.Conv2d(512, 128, kernel_size=5, stride=2, padding=2), # image_width/64 x image_width/64
+            nn.utils.spectral_norm(nn.Conv2d(512, 128, kernel_size=5, stride=2, padding=2)), # image_width/64 x image_width/64
             nn.LeakyReLU(0.2),
             nn.Flatten(), # image_width/64 x image_width/64 x 128
-            nn.Linear(image_width_transformed * image_width_transformed * 128, 1),
+            nn.utils.spectral_norm(nn.Linear(image_width_transformed * image_width_transformed * 128, 1)),
             nn.Sigmoid()
         )
 
@@ -312,7 +312,7 @@ def train(encoder: nn.Module, decoder: nn.Module, discriminator: nn.Module,
 
         for j, (batch, _) in enumerate(tqdm(dataloader)):
             # if j == 0:
-                # plot_images(decoder, encoder, batch[:1])
+            #     plot_images(decoder, encoder, batch[:1])
 
             if iteration_counter % discriminator_part != discriminator_part - 1:
                 batch_device = batch.to(device)
@@ -547,7 +547,7 @@ discriminator = Discriminator(img_width).to(device)
 # %%
 encoder_optimizer = RMSprop(encoder.parameters(), learning_rate)
 decoder_optimizer = RMSprop(decoder.parameters(), learning_rate)
-discriminator_optimizer = RMSprop(discriminator.parameters(), learning_rate * 0.25)
+discriminator_optimizer = RMSprop(discriminator.parameters(), learning_rate)
 
 # %%
 transform = transforms.Compose([
@@ -604,15 +604,15 @@ load_newest_models(decoder, encoder, discriminator, decoder_optimizer, encoder_o
 # plot_interpolate(img1, img2, encoder, decoder, steps=30)
 
 # %%
-train(encoder, decoder, discriminator, flowers_dataloader, 2000, encoder_optimizer, decoder_optimizer, discriminator_optimizer, img_width, vae_history, discriminator_history, initial_discriminator_part=128, gamma=0.04)
+train(encoder, decoder, discriminator, flowers_dataloader, 2000, encoder_optimizer, decoder_optimizer, discriminator_optimizer, img_width, vae_history, discriminator_history, initial_discriminator_part=8, gamma=0.04)
 
 # %%
-# plt.plot(vae_history)
-# # plt.plot(discriminator_history)
-# plt.title('Loss history')
-# plt.xlabel('Epoch')
-# plt.ylabel('Loss')
-# plt.show()
+plt.plot(vae_history)
+# plt.plot(discriminator_history)
+plt.title('Loss history')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.show()
 
 # %%
 # plt.plot(vae_history)
