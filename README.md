@@ -15,6 +15,11 @@ pip install -r requirements.txt
 ```
 
 ## Showcase
+### Autoencoding (encoding -> latent space -> decoding)
+![output1](https://github.com/user-attachments/assets/d82c927f-baa8-4e40-8d0c-4b7883214ea1)
+
+
+### Interpolation
 ![interpolation1](https://github.com/user-attachments/assets/8fbbc142-f2d1-48c4-bfa0-613bda0febcf)
 ![interpolation2](https://github.com/user-attachments/assets/aafeb42c-8dbd-4885-9501-fdf6e5c341bb)
 ![interpolation3](https://github.com/user-attachments/assets/aa714dee-e5b8-41e3-9eb5-ce991dd06aaa)
@@ -24,3 +29,6 @@ pip install -r requirements.txt
 ![interpolation7](https://github.com/user-attachments/assets/07f6bfad-37e6-4e74-841b-6be988769df2)
 ![interpolation8](https://github.com/user-attachments/assets/724c504c-9744-43fc-990a-f48f0c60b1ee)
 ![interpolation9](https://github.com/user-attachments/assets/ff15828f-ed24-4d3e-a15d-a66928bb5d78)
+
+### Chart
+![chart1](https://github.com/user-attachments/assets/8b584c67-a2e1-4944-b83b-2deb8fcb0cfe)
