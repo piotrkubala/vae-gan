@@ -163,4 +163,4 @@ cython_debug/
 # Project specific
 flowers/
 flowers2/
-models/
+models/old/
