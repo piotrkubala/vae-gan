@@ -17,7 +17,8 @@ pip install -r requirements.txt
 ## Showcase
 ### Autoencoding (encoding -> latent space -> decoding)
 ![output1](https://github.com/user-attachments/assets/d82c927f-baa8-4e40-8d0c-4b7883214ea1)
-
+![autoencoding2](https://github.com/user-attachments/assets/822ab18f-a2c5-4f6d-9993-e2d27ea6d00f)
+![autoencoding3](https://github.com/user-attachments/assets/6100418c-24bf-4b1e-8f90-11c12da69e42)
 
 ### Interpolation
 ![interpolation1](https://github.com/user-attachments/assets/8fbbc142-f2d1-48c4-bfa0-613bda0febcf)
@@ -30,5 +31,5 @@ pip install -r requirements.txt
 ![interpolation8](https://github.com/user-attachments/assets/724c504c-9744-43fc-990a-f48f0c60b1ee)
 ![interpolation9](https://github.com/user-attachments/assets/ff15828f-ed24-4d3e-a15d-a66928bb5d78)
 
-### Chart
+### A chart of a projection of encoded sampled instances from the learning dataset in the latent space.
 ![chart1](https://github.com/user-attachments/assets/8b584c67-a2e1-4944-b83b-2deb8fcb0cfe)
